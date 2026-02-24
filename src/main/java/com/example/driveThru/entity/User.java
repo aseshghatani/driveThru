@@ -15,6 +15,10 @@ public class User {
     private String phone;
     private String is_veg;
 
+    public User() {
+
+    }
+
     public String getName() {
         return name;
     }
@@ -47,13 +51,23 @@ public class User {
         this.is_veg = is_veg;
     }
 
-
     public long getId() {
         return id;
     }
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", is_veg='" + is_veg + '\'' +
+                '}';
     }
 }
 
