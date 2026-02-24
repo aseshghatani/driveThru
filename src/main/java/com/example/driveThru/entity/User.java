@@ -13,10 +13,18 @@ public class User {
     private String name;
     private String email;
     private String phone;
-    private String is_veg;
+    private Boolean is_veg;
 
     public User() {
 
+    }
+
+    public Boolean getIs_veg() {
+        return is_veg;
+    }
+
+    public void setIs_veg(Boolean is_veg) {
+        this.is_veg = is_veg;
     }
 
     public String getName() {
@@ -43,13 +51,6 @@ public class User {
         this.phone = phone;
     }
 
-    public String getIs_veg() {
-        return is_veg;
-    }
-
-    public void setIs_veg(String is_veg) {
-        this.is_veg = is_veg;
-    }
 
     public long getId() {
         return id;
