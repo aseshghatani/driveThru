@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.security.SecureRandom;
 
 @RestController
-@RequestMapping
+@RequestMapping("/auth")
 public class OtpController {
 
     private static final Logger log = LoggerFactory.getLogger(OtpController.class);

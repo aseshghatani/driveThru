@@ -19,9 +19,11 @@ public class VerifyOtpService {
     OtpRepository otpRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    private JwtTokenService jwtTokenService;
 
     public AuthDto verifyOtp(String email, String code) {
-        int token = 10000 + random.nextInt();
+
         Optional<Otp> otp = otpRepository.findByEmailAndCodeAndExpiresAtAfter(
                 email,
                 code,
@@ -36,18 +38,20 @@ public class VerifyOtpService {
                 userRepository.save(userEntity);
 
                 otpRepository.delete(otp.get());
+                String token = jwtTokenService.accessToken(userEntity);
                 return new AuthDto(
                         userEntity,
-                        String.valueOf(token)
+                        token
                 );
             } else {
 
                 User user = userRes.get();
                 otpRepository.delete(otp.get());
+                String token = jwtTokenService.accessToken(user);
 
                 return new AuthDto(
                         user,
-                        String.valueOf(token)
+                        token
 
                 );
 

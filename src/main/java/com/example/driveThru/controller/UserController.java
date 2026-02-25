@@ -1,10 +1,13 @@
 package com.example.driveThru.controller;
 
+import com.example.driveThru.dto.UserUpdateDTO;
 import com.example.driveThru.entity.User;
 import com.example.driveThru.repository.UserRepository;
 import com.example.driveThru.services.ApiResponse;
+import com.example.driveThru.services.JwtTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +18,8 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     UserRepository userRepo;
+    @Autowired
+    private JwtTokenService jwtTokenService;
 
     @GetMapping("user")
     public List<User> index() {
@@ -34,15 +39,19 @@ public class UserController {
         }
     }
 
-    @PostMapping("user")
-    public ResponseEntity<ApiResponse<User>> createUser(@RequestBody User user) {
-        User savedUser = userRepo.save(user);
-        ApiResponse<User> response = new ApiResponse<>(
-                true,
-                "user created successfully",
-                savedUser
-        );
-        return ResponseEntity.status(201).body(response);
+    @GetMapping("profile")
+    public ResponseEntity<User> getUserProfile(@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(user);
+    }
+
+    @PutMapping("profile")
+    public ResponseEntity<ApiResponse<User>> updateUser(@AuthenticationPrincipal User user, @RequestBody UserUpdateDTO userUpdateDTO) {
+        user.setName(userUpdateDTO.getName());
+        user.setPhone(userUpdateDTO.getPhone());
+        user.setIs_veg(userUpdateDTO.getIs_veg());
+        userRepo.save(user);
+
+        return ResponseEntity.status(201).body(new ApiResponse<User>(true, "updated successfully", user));
     }
 
     @DeleteMapping("user/{id}")
@@ -55,4 +64,5 @@ public class UserController {
         );
         return ResponseEntity.status(200).body(response);
     }
+
 }
