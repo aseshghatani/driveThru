@@ -1,4 +1,4 @@
-package com.example.driveThru.response;
+package com.example.driveThru.services;
 
 public class ApiResponse<T> {
     private boolean success;

@@ -2,7 +2,7 @@ package com.example.driveThru.controller;
 
 import com.example.driveThru.entity.User;
 import com.example.driveThru.repository.UserRepository;
-import com.example.driveThru.response.ApiResponse;
+import com.example.driveThru.services.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
