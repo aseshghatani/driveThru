@@ -1,6 +1,8 @@
 package com.example.driveThru.controller;
 
-import com.example.driveThru.entity.*;
+import com.example.driveThru.dto.AuthDto;
+import com.example.driveThru.dto.MailSenderDTO;
+import com.example.driveThru.dto.VerifyOtpDTO;
 import com.example.driveThru.repository.OtpRepository;
 import com.example.driveThru.repository.UserRepository;
 import com.example.driveThru.services.ApiResponse;
@@ -18,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.SecureRandom;
-import java.time.LocalDateTime;
-import java.util.Optional;
 
 @RestController
 @RequestMapping

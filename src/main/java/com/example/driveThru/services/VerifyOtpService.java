@@ -1,13 +1,11 @@
 package com.example.driveThru.services;
 
-import com.example.driveThru.entity.AuthDto;
+import com.example.driveThru.dto.AuthDto;
 import com.example.driveThru.entity.Otp;
 import com.example.driveThru.entity.User;
 import com.example.driveThru.repository.OtpRepository;
 import com.example.driveThru.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
@@ -36,6 +34,8 @@ public class VerifyOtpService {
                 User userEntity = new User();
                 userEntity.setEmail(email);
                 userRepository.save(userEntity);
+
+                otpRepository.delete(otp.get());
                 return new AuthDto(
                         userEntity,
                         String.valueOf(token)
@@ -43,6 +43,8 @@ public class VerifyOtpService {
             } else {
 
                 User user = userRes.get();
+                otpRepository.delete(otp.get());
+
                 return new AuthDto(
                         user,
                         String.valueOf(token)

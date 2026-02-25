@@ -1,4 +1,6 @@
-package com.example.driveThru.entity;
+package com.example.driveThru.dto;
+
+import com.example.driveThru.entity.User;
 
 public class AuthDto {
 

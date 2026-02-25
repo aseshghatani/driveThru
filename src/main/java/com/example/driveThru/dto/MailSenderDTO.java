@@ -1,4 +1,4 @@
-package com.example.driveThru.entity;
+package com.example.driveThru.dto;
 
 public class MailSenderDTO {
     private String to;

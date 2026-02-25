@@ -1,6 +1,4 @@
-package com.example.driveThru.entity;
-
-import java.time.LocalDateTime;
+package com.example.driveThru.dto;
 
 public class VerifyOtpDTO {
     private String code;
