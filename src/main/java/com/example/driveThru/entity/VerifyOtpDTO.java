@@ -1,8 +1,11 @@
 package com.example.driveThru.entity;
 
-public class MailSenderDTO {
-    private String to;
+import java.time.LocalDateTime;
+
+public class VerifyOtpDTO {
     private String code;
+    private String mail;
+
 
     public String getCode() {
         return code;
@@ -12,13 +15,12 @@ public class MailSenderDTO {
         this.code = code;
     }
 
-    public String getTo() {
-        return to;
+    public String getMail() {
+        return mail;
     }
 
-    public void setTo(String to) {
-        this.to = to;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
-
 
 }

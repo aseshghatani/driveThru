@@ -15,15 +15,20 @@ public class User {
 
     @Column(nullable = true)
     private String name;
+
+    @Column(unique = true)
     private String email;
     @Column(nullable = true)
-
     private String phone;
-    @Column(nullable = true)
 
+    @Column(nullable = true)
     private Boolean is_veg;
+
+    @Column(nullable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    @Column(nullable = false)
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 

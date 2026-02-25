@@ -1,11 +1,16 @@
 package com.example.driveThru.controller;
 
-import com.example.driveThru.entity.MailSenderDTO;
+import com.example.driveThru.entity.*;
+import com.example.driveThru.repository.OtpRepository;
+import com.example.driveThru.repository.UserRepository;
 import com.example.driveThru.services.ApiResponse;
 import com.example.driveThru.services.MailService;
+import com.example.driveThru.services.OtpService;
+import com.example.driveThru.services.VerifyOtpService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.SecureRandom;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 @RestController
 @RequestMapping
@@ -22,19 +29,19 @@ public class OtpController {
     private static final SecureRandom random = new SecureRandom();
     @Autowired
     MailService mailService;
+    @Autowired
+    OtpService otpService;
+    @Autowired
+    OtpRepository otpRepository;
+    @Autowired
+    UserRepository userRepo;
+    @Autowired
+    VerifyOtpService verifyOtpService;
 
-    @PostMapping("/send-mail")
-    public ResponseEntity<ApiResponse<?>> sendMail(@RequestBody MailSenderDTO request) {
+    @PostMapping("/send-otp")
+    public ResponseEntity<ApiResponse<?>> sendOtp(@RequestBody MailSenderDTO request) {
         try {
-            int code = 100000 + random.nextInt(900000);
-            String message = "Your OTP code is " + code + ". Its valid for 5 mins. Don't share with anyone ";
-
-            mailService.sendMail(
-                    request.getTo(),
-                    "OTP verification Sent from DriveThru",
-                    message
-
-            );
+            otpService.sendOtpAndMail(request.getTo());
             ApiResponse<?> response = new ApiResponse<>(
                     true,
                     "mail sent Successfullly",
@@ -55,5 +62,27 @@ public class OtpController {
 
     }
 
+    @PostMapping("/verify-otp")
+    public ResponseEntity<ApiResponse<?>> verifyOtp(@RequestBody VerifyOtpDTO request) {
+        AuthDto response = verifyOtpService.verifyOtp(
+                request.getMail(),
+                request.getCode()
+        );
+        if (response != null) {
+            return ResponseEntity.status(201).body(new ApiResponse<>(
+                    true,
+                    "authorized successfully",
+                    response
+            ));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ApiResponse<>(
+                            false,
+                            "error occured",
+                            null
+                    )
+            );
+        }
+    }
 
 }

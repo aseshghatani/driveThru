@@ -12,6 +12,7 @@ public class Otp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(unique = true)
     private String email;
     private String code;
     private LocalDateTime expiresAt;
