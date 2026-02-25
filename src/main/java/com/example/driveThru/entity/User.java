@@ -1,6 +1,10 @@
 package com.example.driveThru.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
@@ -9,14 +13,38 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-
+    @Column(nullable = true)
     private String name;
     private String email;
+    @Column(nullable = true)
+
     private String phone;
+    @Column(nullable = true)
+
     private Boolean is_veg;
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 
     public User() {
 
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public Boolean getIs_veg() {
@@ -68,6 +96,8 @@ public class User {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", is_veg='" + is_veg + '\'' +
+                ", createdAt='" + is_veg + '\'' +
+                ", updatedAt='" + is_veg + '\'' +
                 '}';
     }
 }
