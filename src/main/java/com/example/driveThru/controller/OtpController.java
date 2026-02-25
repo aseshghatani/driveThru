@@ -12,21 +12,28 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.SecureRandom;
+
 @RestController
 @RequestMapping
 public class OtpController {
 
     private static final Logger log = LoggerFactory.getLogger(OtpController.class);
+    private static final SecureRandom random = new SecureRandom();
     @Autowired
     MailService mailService;
 
     @PostMapping("/send-mail")
     public ResponseEntity<ApiResponse<?>> sendMail(@RequestBody MailSenderDTO request) {
         try {
+            int code = 100000 + random.nextInt(900000);
+            String message = "Your OTP code is " + code + ". Its valid for 5 mins. Don't share with anyone ";
+
             mailService.sendMail(
                     request.getTo(),
-                    request.getSubject(),
-                    request.getMessage()
+                    "OTP verification Sent from DriveThru",
+                    message
+
             );
             ApiResponse<?> response = new ApiResponse<>(
                     true,
