@@ -13,4 +13,6 @@ public interface OtpRepository extends JpaRepository<Otp, Long> {
             String email,
             LocalDateTime now
     );
+
+    Optional<Otp> findByEmail(String email);
 }
