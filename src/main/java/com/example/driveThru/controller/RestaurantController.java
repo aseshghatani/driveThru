@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 @RequestMapping("restaurant")
 public class RestaurantController {
     @Autowired
@@ -22,16 +24,16 @@ public class RestaurantController {
 
 
     @GetMapping()
-    public ResponseEntity<ApiResponse<Restaurant>> getRestaurant(
+    public ResponseEntity<ApiResponse<List<Restaurant>>> getRestaurant(
             @RequestParam("city") String city
     ) {
-        Optional<Restaurant> restaurant = restaurantRepository.findRestaurantByCityInnerJoin(city);
+        List<Restaurant> restaurant = restaurantRepository.findRestaurantByCityInnerJoin(city);
         return ResponseEntity.status(200).body(
 
                 new ApiResponse<>(
                         true,
                         "restaurent fetched successfully",
-                        restaurant.get()
+                        restaurant
                 )
         );
     }
