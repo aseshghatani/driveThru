@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,4 +32,7 @@ public class Restaurant {
     @OneToOne(mappedBy = "restaurant")
     @JsonManagedReference
     private RestaurantAddress restaurantAddress;
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Menu> menu = new ArrayList<>();
 }

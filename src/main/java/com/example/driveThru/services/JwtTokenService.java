@@ -1,5 +1,6 @@
 package com.example.driveThru.services;
 
+import com.example.driveThru.entity.Admin;
 import com.example.driveThru.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwt;
@@ -26,6 +27,17 @@ public class JwtTokenService {
     private SecretKey getSecretKey() {
         return Keys.hmacShaKeyFor(jwtSecretKey.getBytes(StandardCharsets.UTF_8));
 
+    }
+
+    public String GenerateAdminToken(Admin admin) {
+        return Jwts.builder()
+                .setSubject(admin.getUsername())
+                .claim("id", admin.getId())
+                .claim("role", admin.getRole())
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 86400000))
+                .signWith(getSecretKey(), SignatureAlgorithm.HS256)
+                .compact();
     }
 
     public String accessToken(User user) {
