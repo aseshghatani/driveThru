@@ -1,5 +1,6 @@
 package com.example.driveThru.controller;
 
+import com.example.driveThru.dto.MenuDTO;
 import com.example.driveThru.entity.Menu;
 import com.example.driveThru.repository.MenuRepository;
 import com.example.driveThru.services.ApiResponse;
@@ -39,5 +40,24 @@ public class MenuController {
         }
 
     }
+
+    @PostMapping("/create/{id}")
+    public ResponseEntity<ApiResponse<?>> createMenu(@PathVariable int id, @RequestBody MenuDTO menuDTO) {
+        if (menuService.createMenu(menuDTO, id)) {
+            return ResponseEntity.status(201).body(new ApiResponse<>(
+                    true,
+                    "menu created successfully",
+                    null
+            ));
+        } else {
+            return ResponseEntity.status(501).body(new ApiResponse<>(
+                    false,
+                    "failed creating menu",
+                    null
+            ));
+        }
+
+    }
+
 
 }

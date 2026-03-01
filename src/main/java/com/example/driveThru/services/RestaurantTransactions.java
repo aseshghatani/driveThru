@@ -27,7 +27,7 @@ public class RestaurantTransactions {
             Restaurant restaurant = restaurantRepository.findById(id).get();
             restaurant.setName(restaurantDTO.getName());
             restaurant.setVegFriendly(restaurantDTO.getVegFriendly());
-            restaurant.setActive(restaurantDTO.getVegFriendly());
+            restaurant.setActive(restaurantDTO.getActive());
 
             RestaurantAddress address = restaurant.getRestaurantAddress();
             if (address == null) {

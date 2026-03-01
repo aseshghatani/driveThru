@@ -11,11 +11,18 @@ public class RestaurantDTO {
     private String name;
     private String city;
     private Long restaurant_id;
-
-
+    private boolean active;
     private String address;
     private boolean vegFriendly;
     private String landmark;
+
+    public boolean getActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     public boolean getVegFriendly() {
         return vegFriendly;
