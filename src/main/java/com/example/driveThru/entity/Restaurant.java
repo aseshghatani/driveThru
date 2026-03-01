@@ -29,7 +29,7 @@ public class Restaurant {
     private int likes;
     @Column(nullable = true)
     private int dislikes;
-    @OneToOne(mappedBy = "restaurant")
+    @OneToOne(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private RestaurantAddress restaurantAddress;
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)

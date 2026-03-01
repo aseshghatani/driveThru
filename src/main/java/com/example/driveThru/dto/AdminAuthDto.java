@@ -19,6 +19,7 @@ public class AdminAuthDto {
 
     @Data
     static class User {
+        private String username;
         private Long id;
         private String name;
         private String role;
@@ -26,6 +27,7 @@ public class AdminAuthDto {
         public User(Admin admin) {
             this.id = admin.getId();
             this.name = admin.getName();
+            this.username = admin.getUsername();
             this.role = admin.getRole().replace("ROLE_", "");
         }
     }

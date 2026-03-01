@@ -21,7 +21,7 @@ public class RestaurantDTO {
         return vegFriendly;
     }
 
-    public void setVegFriendly(boolean vegFriendly) {
+    public void setVegFriendly() {
         this.vegFriendly = vegFriendly;
     }
 }
