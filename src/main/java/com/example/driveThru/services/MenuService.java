@@ -50,4 +50,22 @@ public class MenuService {
             return false;
         }
     }
+
+    public boolean updateMenu(MenuDTO menuDTO, Long id) {
+        try {
+
+            Menu menu = menuRepository.findById(id).get();
+            menu.setName(menuDTO.getName());
+            menu.setAvailable(menuDTO.getAvailable());
+            menu.setVeg(menuDTO.getVeg());
+            menuRepository.save(menu);
+            return true;
+        } catch (Exception e) {
+            System.out.println("error while updating menu " + e);
+            return false;
+        }
+    }
+
+
 }
+

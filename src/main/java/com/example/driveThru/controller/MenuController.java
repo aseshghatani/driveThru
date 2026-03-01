@@ -59,5 +59,45 @@ public class MenuController {
 
     }
 
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<ApiResponse<?>> deleteMenu(@PathVariable Long id) {
+        try {
+            menuRepository.deleteById(id);
+            return ResponseEntity.status(200).body(
+                    new ApiResponse<>(
+                            true,
+                            "Deleted REsord successsfully",
+                            null
+                    )
+            );
+        } catch (Exception e) {
+            return ResponseEntity.status(501).body(
+                    new ApiResponse<>(
+                            false,
+                            "Deleted REsord successsfully",
+                            null
+                    ));
+        }
+
+    }
+
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<ApiResponse<?>> updateMenu(@PathVariable Long id, @RequestBody MenuDTO menuDTO) {
+        if (menuService.updateMenu(menuDTO, id)) {
+            return ResponseEntity.status(201).body(new ApiResponse<>(
+                    true,
+                    "updated menu successfully",
+                    null
+            ));
+        } else {
+            return ResponseEntity.status(501).body(
+                    new ApiResponse<>(
+                            false,
+                            "failed while updating menu item",
+                            null
+                    )
+            );
+        }
+    }
 
 }
