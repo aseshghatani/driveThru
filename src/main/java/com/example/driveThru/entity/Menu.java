@@ -24,4 +24,6 @@ public class Menu {
     private boolean veg;
     @Column(name = "is_available", columnDefinition = "boolean default true")
     private boolean available;
+    private float sellingPrice;
+    private float retailPrice;
 }

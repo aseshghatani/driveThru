@@ -6,14 +6,12 @@ import com.example.driveThru.entity.RestaurantAddress;
 import com.example.driveThru.repository.RestaurantAddressRepository;
 import com.example.driveThru.repository.RestaurantRepository;
 import com.example.driveThru.services.ApiResponse;
-import com.example.driveThru.transactions.RestaurantTransactions;
+import com.example.driveThru.services.RestaurantTransactions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin
