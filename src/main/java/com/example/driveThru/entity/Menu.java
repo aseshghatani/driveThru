@@ -1,10 +1,14 @@
 package com.example.driveThru.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -26,4 +30,11 @@ public class Menu {
     private boolean available;
     private float sellingPrice;
     private float retailPrice;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<VariantGroup> variantGroup = new ArrayList<>();
+    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<AddOnGroup> addOnGroups = new ArrayList<>();
 }

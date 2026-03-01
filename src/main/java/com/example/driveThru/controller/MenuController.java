@@ -1,7 +1,9 @@
 package com.example.driveThru.controller;
 
 import com.example.driveThru.dto.MenuDTO;
+import com.example.driveThru.entity.AddOnGroup;
 import com.example.driveThru.entity.Menu;
+import com.example.driveThru.repository.AddOnGroupRespository;
 import com.example.driveThru.repository.MenuRepository;
 import com.example.driveThru.services.ApiResponse;
 import com.example.driveThru.services.MenuService;
@@ -19,6 +21,8 @@ public class MenuController {
     MenuRepository menuRepository;
     @Autowired
     MenuService menuService;
+    @Autowired
+    AddOnGroupRespository addOnGroupRespository;
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<?>> getMenuFor(@PathVariable Long id) {
@@ -99,5 +103,26 @@ public class MenuController {
             );
         }
     }
+
+    @GetMapping("/variant/{id}")
+    public ResponseEntity<ApiResponse<?>> getMenu(@PathVariable Long id) {
+        Menu menu = menuRepository.findById(id).get();
+        return ResponseEntity.status(200).body(new ApiResponse<>(
+                true,
+                "menu fetched successfully",
+                menu
+        ));
+    }
+
+    @DeleteMapping("/add-on-group/delete/{id}")
+    public Void deleteAddonGroup(@PathVariable Long id) {
+        try {
+            addOnGroupRespository.deleteById(id);
+        } catch (Exception e) {
+            System.out.println("error while deleteing addOn group" + e);
+        }
+        return null;
+    }
+
 
 }
