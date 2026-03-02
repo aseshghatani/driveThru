@@ -42,6 +42,9 @@ public class MenuService {
             menu.setName(menuDTO.getName());
             menu.setAvailable(menuDTO.getAvailable());
             menu.setVeg(menuDTO.getVeg());
+            menu.setSellingPrice(menuDTO.getSellingPrice());
+            menu.setRetailPrice(menuDTO.getRetailPrice());
+            menu.setDescription(menuDTO.getDescription());
             menu.setRestaurant(restaurant);
             menuRepository.save(menu);
             return true;
@@ -57,7 +60,10 @@ public class MenuService {
             Menu menu = menuRepository.findById(id).get();
             menu.setName(menuDTO.getName());
             menu.setAvailable(menuDTO.getAvailable());
+            menu.setRetailPrice(menuDTO.getRetailPrice());
+            menu.setSellingPrice(menuDTO.getSellingPrice());
             menu.setVeg(menuDTO.getVeg());
+            menu.setDescription(menuDTO.getDescription());
             menuRepository.save(menu);
             return true;
         } catch (Exception e) {

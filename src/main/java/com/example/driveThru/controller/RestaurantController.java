@@ -39,6 +39,25 @@ public class RestaurantController {
         );
     }
 
+    @GetMapping("/city")
+    public ResponseEntity<ApiResponse<?>> cities() {
+        List<String> restaurantAddress = restaurantAddressRepo.findDistinctCities();
+        if (restaurantAddress.isEmpty()) {
+            return ResponseEntity.status(404).body(new ApiResponse<>(
+                    false,
+                    "no Cities found",
+                    null
+            ));
+        } else {
+            return ResponseEntity.status(200).body(new ApiResponse<>(
+                    true,
+                    "Cities Found",
+                    restaurantAddress
+            ));
+        }
+    }
+
+
     @DeleteMapping("/{id}")
     public void deleteReataurant(@PathVariable int id) {
         restaurantTransactions.deleteRestaurant(id);

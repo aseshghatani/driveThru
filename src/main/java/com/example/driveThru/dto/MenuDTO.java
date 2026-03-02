@@ -10,6 +10,7 @@ public class MenuDTO {
     private boolean available;
     private float sellingPrice;
     private float retailPrice;
+    private String description;
 
     public boolean getAvailable() {
         return available;

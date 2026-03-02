@@ -31,6 +31,8 @@ public class Menu {
     private float sellingPrice;
     private float retailPrice;
 
+    private String description;
+
     @JsonManagedReference
     @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<VariantGroup> variantGroup = new ArrayList<>();
